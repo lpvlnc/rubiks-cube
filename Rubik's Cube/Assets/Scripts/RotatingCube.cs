@@ -8,6 +8,8 @@ public class RotatingCube : MonoBehaviour
     Vector2 _firstPressPos;
     Vector2 _secondPressPos;
     Vector2 _currentSwipe;
+    Vector3 _previousMousePosition;
+    Vector3 _mouseDelta;
 
     public GameObject target;
     public float Speed = 400f;
@@ -22,14 +24,29 @@ public class RotatingCube : MonoBehaviour
     void Update()
     {
         Swipe();
-        // Rotate cube till its rotation become equal the targets rotation
-        if (transform.rotation != target.transform.rotation)
-        {
-            var step = Speed * Time.deltaTime;
-            transform.rotation = Quaternion.RotateTowards(transform.rotation, target.transform.rotation, step);
-        }
+        Drag();
     }
 
+    void Drag()
+    {
+        // While the mouse is held down the cube can be moved around its central axis to provide visual feedback
+        if (Input.GetMouseButton(1))
+        {
+            _mouseDelta = Input.mousePosition - _previousMousePosition;
+            _mouseDelta *= 0.1f; // reduction of rotation speed can be done here
+            transform.rotation = Quaternion.Euler(_mouseDelta.y, -_mouseDelta.x, 0) * transform.rotation;
+        }
+        else
+        {
+            // Rotate cube till its rotation become equal the targets rotation
+            if (transform.rotation != target.transform.rotation)
+            {
+                var step = Speed * Time.deltaTime;
+                transform.rotation = Quaternion.RotateTowards(transform.rotation, target.transform.rotation, step);
+            }
+        }
+        _previousMousePosition = Input.mousePosition;
+    }
 
     void Swipe()
     {
