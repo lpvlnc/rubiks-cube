@@ -34,7 +34,8 @@ public class RotatingCube : MonoBehaviour
         {
             _mouseDelta = Input.mousePosition - _previousMousePosition;
             _mouseDelta *= 0.1f; // reduction of rotation speed can be done here
-            transform.rotation = Quaternion.Euler(_mouseDelta.y, -_mouseDelta.x, 0) * transform.rotation;
+            bool axisDirection = _mouseDelta.x * _mouseDelta.y < 0;
+            transform.rotation = Quaternion.Euler(axisDirection ? _mouseDelta.y : _mouseDelta.y * 0.2f,-_mouseDelta.x, axisDirection ? -_mouseDelta.y * 0.2f : -_mouseDelta.y) * transform.rotation;
         }
         else
         {
@@ -86,16 +87,6 @@ public class RotatingCube : MonoBehaviour
         }
     }
 
-    bool LeftSwipe(Vector2 swipe)
-    {
-        return _currentSwipe.x < 0 && _currentSwipe.y > -0.5f && _currentSwipe.y < 0.5f;
-    }
-
-    bool RightSwipe(Vector2 swipe)
-    {
-        return _currentSwipe.x > 0 && _currentSwipe.y > -0.5f && _currentSwipe.y < 0.5f;
-    }
-
     bool UpLeftSwipe(Vector2 swipe)
     {
         return _currentSwipe.y > 0 && _currentSwipe.x < 0f;
@@ -104,6 +95,11 @@ public class RotatingCube : MonoBehaviour
     bool UpRightSwipe(Vector2 swipe)
     {
         return _currentSwipe.y > 0 && _currentSwipe.x > 0f;
+    }
+
+    bool LeftSwipe(Vector2 swipe)
+    {
+        return _currentSwipe.x < 0 && _currentSwipe.y > -0.5f && _currentSwipe.y < 0.5f;
     }
 
     bool DownLeftSwipe(Vector2 swipe)
@@ -115,4 +111,9 @@ public class RotatingCube : MonoBehaviour
     {
         return _currentSwipe.y < 0 && _currentSwipe.x > 0f;
     }
+
+    bool RightSwipe(Vector2 swipe)
+    {
+        return _currentSwipe.x > 0 && _currentSwipe.y > -0.5f && _currentSwipe.y < 0.5f;
+    } 
 }
