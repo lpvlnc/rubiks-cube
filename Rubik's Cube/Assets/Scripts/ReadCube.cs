@@ -28,6 +28,8 @@ public class ReadCube : MonoBehaviour
         SetRayTransforms();
         _cubeState = FindObjectOfType<CubeState>();
         _cubeMap = FindObjectOfType<CubeMap>();
+        ReadState();
+        CubeState.Started = true;
     }
 
     // Update is called once per frame

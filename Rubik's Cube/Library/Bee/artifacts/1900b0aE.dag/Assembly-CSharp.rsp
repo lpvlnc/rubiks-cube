@@ -345,13 +345,23 @@
 -r:"Library/Bee/artifacts/1900b0aE.dag/Unity.VSCode.Editor.ref.dll"
 -r:"Library/Bee/artifacts/1900b0aE.dag/UnityEditor.UI.ref.dll"
 -r:"Library/Bee/artifacts/1900b0aE.dag/UnityEngine.UI.ref.dll"
+"Assets/Scripts/Automate.cs"
 "Assets/Scripts/Colors.cs"
 "Assets/Scripts/CubeMap.cs"
 "Assets/Scripts/CubeState.cs"
+"Assets/Scripts/Kociemba/K_CoordCube.cs"
+"Assets/Scripts/Kociemba/K_CoordCubeBuildTables.cs"
+"Assets/Scripts/Kociemba/K_CubieCube.cs"
+"Assets/Scripts/Kociemba/K_Enums.cs"
+"Assets/Scripts/Kociemba/K_FaceCube.cs"
+"Assets/Scripts/Kociemba/K_Search.cs"
+"Assets/Scripts/Kociemba/K_SearchRunTime.cs"
+"Assets/Scripts/Kociemba/K_Tools.cs"
 "Assets/Scripts/PivotRotation.cs"
 "Assets/Scripts/ReadCube.cs"
 "Assets/Scripts/RotatingCube.cs"
 "Assets/Scripts/SelectFace.cs"
+"Assets/Scripts/SolveTwoPhase.cs"
 -langversion:9.0
 
 /deterministic

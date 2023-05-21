@@ -17,11 +17,10 @@ public class SelectFace : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (Input.GetMouseButtonDown(0))
+        if (Input.GetMouseButtonDown(0) && !CubeState.AutoRotating)
         {
             // Read the current state of the cube
             _readCube.ReadState();
-
 
             // Raycast from the mouse towards the cube to see if a face is hit
             RaycastHit hit;
@@ -48,6 +47,7 @@ public class SelectFace : MonoBehaviour
                     {
                         // Pick it up
                         _cubeState.PickUp(cubeSide);
+                        cubeSide[4].transform.parent.GetComponent<PivotRotation>().Rotate(cubeSide);
                     }
                 }
             }

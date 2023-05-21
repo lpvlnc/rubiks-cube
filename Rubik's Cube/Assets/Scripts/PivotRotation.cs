@@ -12,7 +12,7 @@ public class PivotRotation : MonoBehaviour
     private Vector3 _rotation;
     private Quaternion targetQuaternion;
     private bool _dragging = false;
-    private bool autoRotating = false;
+    private bool _autoRotating = false;
     private float _sensibility = 0.4f;
     private float _speed = 400f;
     
@@ -24,10 +24,10 @@ public class PivotRotation : MonoBehaviour
         _readCube = FindObjectOfType<ReadCube>();
     }
 
-    // Update is called once per frame
-    void Update()
+    // Update is called once per frame at the end
+    void LateUpdate()
     {
-        if (_dragging)
+        if (_dragging && !_autoRotating)
         {
             SpinSide(_activeSide);
             if (Input.GetMouseButtonUp(0))
@@ -37,7 +37,7 @@ public class PivotRotation : MonoBehaviour
             }
         }
 
-        if (autoRotating)
+        if (_autoRotating)
             AutoRotate();
     }
 
@@ -84,6 +84,15 @@ public class PivotRotation : MonoBehaviour
         _localForward = Vector3.zero - side[4].transform.parent.transform.localPosition;
     }
 
+    public void StartAutoRotate(List<GameObject> side, float angle)
+    {
+        _cubeState.PickUp(side);
+        Vector3 localForward = Vector3.zero - side[4].transform.parent.transform.localPosition;
+        targetQuaternion = Quaternion.AngleAxis(angle, localForward) * transform.localRotation;
+        _activeSide = side;
+        _autoRotating = true;
+    }
+
     public void RotateToCorrectAngle()
     {
         Vector3 vector = transform.localEulerAngles;
@@ -93,7 +102,7 @@ public class PivotRotation : MonoBehaviour
         vector.z = Mathf.Round(vector.z / 90) * 90;
 
         targetQuaternion.eulerAngles = vector;
-        autoRotating = true;
+        _autoRotating = true;
     }
 
     private void AutoRotate()
@@ -109,7 +118,8 @@ public class PivotRotation : MonoBehaviour
             // Unparent the little cubes
             _cubeState.PutDown(_activeSide, transform.parent);
             _readCube.ReadState();
-            autoRotating = false;
+            CubeState.AutoRotating = false;
+            _autoRotating = false;
             _dragging = false;
         }
     }
