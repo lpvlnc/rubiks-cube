@@ -362,6 +362,7 @@
 "Assets/Scripts/RotatingCube.cs"
 "Assets/Scripts/SelectFace.cs"
 "Assets/Scripts/SolveTwoPhase.cs"
+"Assets/Scripts/UIFader.cs"
 -langversion:9.0
 
 /deterministic

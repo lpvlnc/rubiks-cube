@@ -13,18 +13,7 @@ public class CubeState : MonoBehaviour
     public List<GameObject> Back = new();
     public static bool AutoRotating = false;
     public static bool Started = false;
-
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
+    public static bool CameraAtPosition = false;
 
     public void PickUp(List<GameObject> cubeSide)
     {
