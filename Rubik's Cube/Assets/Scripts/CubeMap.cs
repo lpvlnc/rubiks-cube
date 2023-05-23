@@ -43,22 +43,22 @@ public class CubeMap : MonoBehaviour
         foreach (Transform map in side) 
         {
             if (face[i].name.Equals("Up"))
-                map.GetComponent<Image>().color = Color.yellow; // Yellow - #FFFFBA
+                map.GetComponent<Image>().color = new(1, 1, 0.7294118f, 1);//Color.yellow; // Yellow - #FFFFBA
 
             if (face[i].name.Equals("Left"))
-                map.GetComponent<Image>().color = Color.green; // Green - #BAFFC9
+                map.GetComponent<Image>().color = new(0.7294118f, 1, 0.7882353f, 1);//Color.green; // Green - #BAFFC9
 
             if (face[i].name.Equals("Down"))
                 map.GetComponent<Image>().color = Color.white; // White - #FFFFFF
 
             if (face[i].name.Equals("Front"))
-                map.GetComponent<Image>().color = new(1, 0.5f, 0, 1); // Orange - #F8DBBA
+                map.GetComponent<Image>().color = new(0.972549f, 0.8588235f, 0.7294118f, 1);//new(1, 0.5f, 0, 1); // Orange - #F8DBBA
 
             if (face[i].name.Equals("Right"))
-                map.GetComponent<Image>().color = Color.blue; // Blue - #BAE1FF
+                map.GetComponent<Image>().color = new(0.7294118f, 0.8823529f, 1, 1);//Color.blue; // Blue - #BAE1FF
 
             if (face[i].name.Equals("Back"))
-                map.GetComponent<Image>().color = Color.red; // Red - #FFB3BA
+                map.GetComponent<Image>().color = new(1, 0.7019608f, 0.7294118f, 1);//Color.red; // Red - #FFB3BA
             i++;
         }
     }
