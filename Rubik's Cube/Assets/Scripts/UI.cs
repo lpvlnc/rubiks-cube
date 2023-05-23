@@ -1,22 +1,36 @@
 using System.Collections;
 using System.Collections.Generic;
-using Unity.VisualScripting;
 using UnityEngine;
-using UnityEngine.UI;
 
-public class UIFader : MonoBehaviour
+public class UI : MonoBehaviour
 {
     public Camera Camera;
     public List<CanvasGroup> UIElements;
+    public GameObject Cube;
     private bool _moveCamera = false;
+    public float time = 0f;
+    private float _slerpSpeed = 0.2f;
 
     public void Update()
     {
         if (_moveCamera)
-        {
             MoveCamera();
+        
+        if (CubeState.StartAnimationFinished)
+        {
+            if (CubeState.Shuffling || CubeState.Solving)
+            {
+                UIElements[2].interactable = false;
+                UIElements[3].interactable = false;
+            }
+            else
+            {
+                UIElements[2].interactable = true;
+                UIElements[3].interactable = true;
+            }
         }
     }
+
     public void FadeIn()
     {
         _moveCamera = true;
@@ -30,14 +44,22 @@ public class UIFader : MonoBehaviour
 
     public void MoveCamera()
     {
-        Vector3 finalPosition = new(-13f, 9f, -10f);
-        Camera.transform.position = Vector3.Lerp(Camera.transform.position, finalPosition, 2.0f * Time.deltaTime);
-        if (Camera.transform.position.x > (finalPosition.x - 0.1f) &&
-            Camera.transform.position.y > (finalPosition.y - 0.1f) &&
-            Camera.transform.position.z > (finalPosition.z - 0.1f))
+        Vector3 finalCameraPosition = new(-13f, 9f, -10f);
+        Camera.transform.position = Vector3.Lerp(Camera.transform.position, finalCameraPosition, 2.0f * Time.deltaTime);
+
+        Quaternion finalCubeRotation = new(0f, 0f, 0f, 1f);
+        Cube.transform.localRotation = Quaternion.Slerp(Cube.transform.rotation, finalCubeRotation, time);
+        time += Time.deltaTime * _slerpSpeed;
+
+        if (Camera.transform.position.x > (finalCameraPosition.x - 0.1f) &&
+            Camera.transform.position.y > (finalCameraPosition.y - 0.1f) &&
+            Camera.transform.position.z > (finalCameraPosition.z - 0.1f) &&
+            Cube.transform.rotation.x == finalCubeRotation.x &&
+            Cube.transform.rotation.y < 1f &&
+            Cube.transform.rotation.z == finalCubeRotation.z)
         {
             _moveCamera = false;
-            CubeState.CameraAtPosition = true;
+            CubeState.StartAnimationFinished = true;
         }
     }
 
@@ -64,7 +86,6 @@ public class UIFader : MonoBehaviour
                     uiElements[i].interactable = false;
             }
             if (percentageComplete >= 1) break;
-
             yield return new WaitForEndOfFrame();
         }
     }

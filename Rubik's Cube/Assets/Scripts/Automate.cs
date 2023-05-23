@@ -31,18 +31,28 @@ public class Automate : MonoBehaviour
             // Remove the move at the first index
             MoveList.Remove(MoveList[0]);
         }
+        
+        if (MoveList.Count == 0)
+        {
+            CubeState.Shuffling = false;
+            CubeState.Solving = false;
+        }
     }
 
     public void Shuffle()
     {
-        List<string> moves = new();
-        int suffleLength = Random.Range(10, 30);
-        for (int i = 0; i < suffleLength; i++)
+        if (!CubeState.AutoRotating) 
         {
-            int randomMove = Random.Range(0, _allMoves.Count);
-            moves.Add(_allMoves[randomMove]);
+            CubeState.Shuffling = true;
+            List<string> moves = new();
+            int suffleLength = Random.Range(10, 30);
+            for (int i = 0; i < suffleLength; i++)
+            {
+                int randomMove = Random.Range(0, _allMoves.Count);
+                moves.Add(_allMoves[randomMove]);
+            }
+            MoveList = moves;
         }
-        MoveList = moves;
     }
 
     void DoMove(string move)

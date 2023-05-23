@@ -23,8 +23,13 @@ public class RotatingCube : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        Swipe();
-        Drag();
+        if (!CubeState.StartAnimationFinished)
+            transform.Rotate(Vector3.up, 25f * Time.deltaTime, Space.World);
+        else
+        {
+            Swipe();
+            Drag();
+        }
     }
 
     void Drag()

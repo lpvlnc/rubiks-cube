@@ -12,8 +12,10 @@ public class CubeState : MonoBehaviour
     public List<GameObject> Right = new();
     public List<GameObject> Back = new();
     public static bool AutoRotating = false;
+    public static bool Shuffling = false;
+    public static bool Solving = false;
     public static bool Started = false;
-    public static bool CameraAtPosition = false;
+    public static bool StartAnimationFinished = false;
 
     public void PickUp(List<GameObject> cubeSide)
     {
