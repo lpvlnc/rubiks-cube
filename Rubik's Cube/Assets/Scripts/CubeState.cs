@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class CubeState : MonoBehaviour
 {
@@ -11,12 +12,52 @@ public class CubeState : MonoBehaviour
     public List<GameObject> Front = new();
     public List<GameObject> Right = new();
     public List<GameObject> Back = new();
+
+    public GameObject CubeLabel;
     public static bool AutoRotating = false;
     public static bool Shuffling = false;
     public static bool Solving = false;
     public static bool Started = false;
     public static bool StartAnimationFinished = false;
 
+    private Text _label;
+    private Color _color;
+    public float BlinkFadeInTime = 0.3f;
+    public float BlinkStayTime = 0.4f;
+    public float BlinkFaceOutTime = 0.5f;
+    private float _timer = 0f;
+
+    public void Start()
+    {
+        _label = CubeLabel.GetComponent<Text>();
+        _color = _label.color;
+    }
+    public void Update()
+    {
+        if (Shuffling)
+            Blink("Shuffling...");
+        else if (Solving)
+            Blink("Solving...");
+        else
+        {
+            _timer = 0f;
+            CubeLabel.GetComponent<Text>().text = "";
+        }
+    }
+
+    public void Blink(string text)
+    {
+        _timer += Time.deltaTime;
+        if (_timer < BlinkFadeInTime)
+            _label.color = new Color(_color.r, _color.g, _color.b, _timer / BlinkFadeInTime);
+        else if (_timer < BlinkFadeInTime + BlinkStayTime)
+            _label.color = new Color(_color.r, _color.g, _color.b, 1);
+        else if (_timer < BlinkFadeInTime + BlinkStayTime + BlinkFaceOutTime)
+            _label.color = new Color(_color.r, _color.g, _color.b, 1 - (_timer - (BlinkFadeInTime + BlinkStayTime)) / BlinkFaceOutTime);
+        else
+            _timer = 0f;
+        CubeLabel.GetComponent<Text>().text = text;
+    }
     public void PickUp(List<GameObject> cubeSide)
     {
         foreach (GameObject face in cubeSide)

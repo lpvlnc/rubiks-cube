@@ -66,8 +66,8 @@ public class UI : MonoBehaviour
     public IEnumerator FadeCanvasGroup(List<CanvasGroup> uiElements, float end, float lerpTime = 1f)
     {
         float timeStartedLerping = Time.time;
-        float timeSinceStarted = 0;
-        float percentageComplete = 0;
+        float timeSinceStarted;
+        float percentageComplete;
         while (true)
         {
             timeSinceStarted = Time.time - timeStartedLerping;
