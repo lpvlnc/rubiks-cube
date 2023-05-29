@@ -58,6 +58,7 @@ public class CubeState : MonoBehaviour
             _timer = 0f;
         CubeLabel.GetComponent<Text>().text = text;
     }
+
     public void PickUp(List<GameObject> cubeSide)
     {
         foreach (GameObject face in cubeSide)
