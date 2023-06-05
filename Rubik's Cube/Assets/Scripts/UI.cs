@@ -1,15 +1,19 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class UI : MonoBehaviour
 {
     public Camera Camera;
     public List<CanvasGroup> UIElements;
     public GameObject Cube;
-    private bool _moveCamera = false;
+    public GameObject MoveContainer;
+    public GameObject MoveItem;
     public float time = 0f;
+    private bool _moveCamera = false;
     private float _slerpSpeed = 0.2f;
+    private int MovesCount = 0;
 
     public void Update()
     {
@@ -88,5 +92,19 @@ public class UI : MonoBehaviour
             if (percentageComplete >= 1) break;
             yield return new WaitForEndOfFrame();
         }
+    }
+
+    public void AddMove(string movement)
+    {
+        GameObject obj = Instantiate(MoveItem);
+        obj.transform.SetParent(MoveContainer.transform, false);
+        obj.transform.GetChild(0).GetComponent<Text>().text = $"{(++MovesCount).ToString().PadLeft(2, '0')} - {movement}";
+    }
+
+    public void ClearMoves()
+    {
+        MovesCount = 0;
+        foreach(Transform child in MoveContainer.transform)
+            Destroy(child.gameObject);
     }
 }

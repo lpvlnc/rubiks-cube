@@ -14,11 +14,13 @@ public class Automate : MonoBehaviour
     };
     private CubeState _cubeState;
     private ReadCube _readCube;
+    private UI _ui;
     // Start is called before the first frame update
     void Start()
     {
         _cubeState = FindObjectOfType<CubeState>();
         _readCube = FindObjectOfType<ReadCube>();
+        _ui = FindObjectOfType<UI>();
     }
 
     // Update is called once per frame
@@ -29,6 +31,10 @@ public class Automate : MonoBehaviour
             // Do the move at the first index
             DoMove(MoveList[0]);
 
+            if (CubeState.Solving)
+                _ui.AddMove(MoveList[0]);
+            else
+                _ui.ClearMoves();
             // Remove the move at the first index
             MoveList.Remove(MoveList[0]);
         }
