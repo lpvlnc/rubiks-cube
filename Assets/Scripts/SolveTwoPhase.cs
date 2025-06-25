@@ -13,8 +13,8 @@ public class SolveTwoPhase : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        _cubeState = FindObjectOfType<CubeState>();
-        _readCube = FindObjectOfType<ReadCube>();
+        _cubeState = FindFirstObjectByType<CubeState>();
+        _readCube = FindFirstObjectByType<ReadCube>();
     }
 
     // Update is called once per frame
@@ -26,7 +26,6 @@ public class SolveTwoPhase : MonoBehaviour
             Solver();
         }
     }
-
 
     public void Solver()
     {

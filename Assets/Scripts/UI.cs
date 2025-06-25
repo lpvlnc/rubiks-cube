@@ -12,14 +12,14 @@ public class UI : MonoBehaviour
     public GameObject MoveItem;
     public float time = 0f;
     private bool _moveCamera = false;
-    private float _slerpSpeed = 0.2f;
     private int MovesCount = 0;
+    private readonly float _slerpSpeed = 0.2f;
 
     public void Update()
     {
         if (_moveCamera)
             MoveCamera();
-        
+
         if (CubeState.StartAnimationFinished)
         {
             if (CubeState.Shuffling || CubeState.Solving)
@@ -104,7 +104,7 @@ public class UI : MonoBehaviour
     public void ClearMoves()
     {
         MovesCount = 0;
-        foreach(Transform child in MoveContainer.transform)
+        foreach (Transform child in MoveContainer.transform)
             Destroy(child.gameObject);
     }
 }

@@ -10,8 +10,8 @@ public class SelectFace : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        _cubeState = FindObjectOfType<CubeState>();
-        _readCube = FindObjectOfType<ReadCube>();
+        _cubeState = FindFirstObjectByType<CubeState>();
+        _readCube = FindFirstObjectByType<ReadCube>();
     }
 
     // Update is called once per frame
@@ -23,9 +23,8 @@ public class SelectFace : MonoBehaviour
             _readCube.ReadState();
 
             // Raycast from the mouse towards the cube to see if a face is hit
-            RaycastHit hit;
             Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
-            if (Physics.Raycast(ray, out hit, 100.0f, _layerMask))
+            if (Physics.Raycast(ray, out RaycastHit hit, 100.0f, _layerMask))
             {
                 GameObject face = hit.collider.gameObject;
 

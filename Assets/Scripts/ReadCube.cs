@@ -1,4 +1,3 @@
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -11,8 +10,7 @@ public class ReadCube : MonoBehaviour
     public Transform TRight;
     public Transform TBack;
     public GameObject EmptyGO;
-
-    private int _layerMask = 1 << 6; // This layerMask is for the faces of the cube only
+    private readonly int _layerMask = 1 << 6; // This layerMask is for the faces of the cube only
     private CubeState _cubeState;
     private CubeMap _cubeMap;
     private List<GameObject> _upRays = new();
@@ -26,22 +24,16 @@ public class ReadCube : MonoBehaviour
     void Start()
     {
         SetRayTransforms();
-        _cubeState = FindObjectOfType<CubeState>();
-        _cubeMap = FindObjectOfType<CubeMap>();
+        _cubeState = FindFirstObjectByType<CubeState>();
+        _cubeMap = FindFirstObjectByType<CubeMap>();
         ReadState();
         CubeState.Started = true;
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
-
     public void ReadState()
     {
-        _cubeState = FindObjectOfType<CubeState>();
-        _cubeMap = FindObjectOfType<CubeMap>();
+        _cubeState = FindFirstObjectByType<CubeState>();
+        _cubeMap = FindFirstObjectByType<CubeMap>();
 
         // Set the state of each position in the list of sides so we know
         // what color is in what position
@@ -98,7 +90,6 @@ public class ReadCube : MonoBehaviour
     public List<GameObject> ReadFace(List<GameObject> rayStarts, Transform rayTransform)
     {
         List<GameObject> facesHit = new();
-
         foreach (GameObject rayStart in rayStarts)
         {
             Vector3 ray = rayStart.transform.position;
@@ -113,7 +104,6 @@ public class ReadCube : MonoBehaviour
             else
                 Debug.DrawRay(ray, rayTransform.forward * 1000, Color.red);
         }
-
         return facesHit;
     }
 }

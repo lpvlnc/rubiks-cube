@@ -1,7 +1,4 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.UIElements;
 
 public class RotatingCube : MonoBehaviour
 {
@@ -10,15 +7,8 @@ public class RotatingCube : MonoBehaviour
     Vector2 _currentSwipe;
     Vector3 _previousMousePosition;
     Vector3 _mouseDelta;
-
     public GameObject target;
     public float Speed = 400f;
-
-    // Start is called before the first frame update
-    void Start()
-    {
-
-    }
 
     // Update is called once per frame
     void Update()
@@ -65,59 +55,47 @@ public class RotatingCube : MonoBehaviour
             _currentSwipe = new Vector2(_secondPressPos.x - _firstPressPos.x, _secondPressPos.y - _firstPressPos.y);
             _currentSwipe.Normalize();
 
-            if (LeftSwipe(_currentSwipe))
-            {
+            if (LeftSwipe())
                 target.transform.Rotate(0, 90, 0, Space.World);
-            }
-            else if (RightSwipe(_currentSwipe))
-            {
+            else if (RightSwipe())
                 target.transform.Rotate(0, -90, 0, Space.World);
-            }
-            else if (UpLeftSwipe(_currentSwipe))
-            {
+            else if (UpLeftSwipe())
                 target.transform.Rotate(90, 0, 0, Space.World);
-            }
-            else if (UpRightSwipe(_currentSwipe))
-            {
+            else if (UpRightSwipe())
                 target.transform.Rotate(0, 0, -90, Space.World);
-            }
-            else if (DownLeftSwipe(_currentSwipe))
-            {
+            else if (DownLeftSwipe())
                 target.transform.Rotate(0, 0, 90, Space.World);
-            }
-            else if (DownRightSwipe(_currentSwipe))
-            {
+            else if (DownRightSwipe())
                 target.transform.Rotate(-90, 0, 0, Space.World);
-            }
         }
     }
 
-    bool UpLeftSwipe(Vector2 swipe)
+    bool UpLeftSwipe()
     {
         return _currentSwipe.y > 0 && _currentSwipe.x < 0f;
     }
 
-    bool UpRightSwipe(Vector2 swipe)
+    bool UpRightSwipe()
     {
         return _currentSwipe.y > 0 && _currentSwipe.x > 0f;
     }
 
-    bool LeftSwipe(Vector2 swipe)
+    bool LeftSwipe()
     {
         return _currentSwipe.x < 0 && _currentSwipe.y > -0.5f && _currentSwipe.y < 0.5f;
     }
 
-    bool DownLeftSwipe(Vector2 swipe)
+    bool DownLeftSwipe()
     {
         return _currentSwipe.y < 0 && _currentSwipe.x < 0f;
     }
 
-    bool DownRightSwipe(Vector2 swipe)
+    bool DownRightSwipe()
     {
         return _currentSwipe.y < 0 && _currentSwipe.x > 0f;
     }
 
-    bool RightSwipe(Vector2 swipe)
+    bool RightSwipe()
     {
         return _currentSwipe.x > 0 && _currentSwipe.y > -0.5f && _currentSwipe.y < 0.5f;
     } 

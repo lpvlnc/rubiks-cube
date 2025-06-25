@@ -1,7 +1,5 @@
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.UI;
 
 public class Automate : MonoBehaviour
 {
@@ -15,12 +13,13 @@ public class Automate : MonoBehaviour
     private CubeState _cubeState;
     private ReadCube _readCube;
     private UI _ui;
+    
     // Start is called before the first frame update
     void Start()
     {
-        _cubeState = FindObjectOfType<CubeState>();
-        _readCube = FindObjectOfType<ReadCube>();
-        _ui = FindObjectOfType<UI>();
+        _cubeState = FindFirstObjectByType<CubeState>();
+        _readCube = FindFirstObjectByType<ReadCube>();
+        _ui = FindFirstObjectByType<UI>();
     }
 
     // Update is called once per frame
@@ -66,7 +65,7 @@ public class Automate : MonoBehaviour
     {
         _readCube.ReadState();
         CubeState.AutoRotating = true;
-
+        
         if (move.Equals("U"))
             RotateSide(_cubeState.Up, -90);
 

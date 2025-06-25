@@ -1,4 +1,3 @@
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
@@ -12,14 +11,12 @@ public class CubeState : MonoBehaviour
     public List<GameObject> Front = new();
     public List<GameObject> Right = new();
     public List<GameObject> Back = new();
-
     public GameObject CubeLabel;
     public static bool AutoRotating = false;
     public static bool Shuffling = false;
     public static bool Solving = false;
     public static bool Started = false;
     public static bool StartAnimationFinished = false;
-
     private Text _label;
     private Color _color;
     public float BlinkFadeInTime = 0.3f;
@@ -32,6 +29,7 @@ public class CubeState : MonoBehaviour
         _label = CubeLabel.GetComponent<Text>();
         _color = _label.color;
     }
+    
     public void Update()
     {
         if (Shuffling)
