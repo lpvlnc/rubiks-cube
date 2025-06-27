@@ -2249,6 +2249,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   target: {fileID: 747117670}
   Speed: 400
+  soundObject: {fileID: 1723191248}
 --- !u!114 &675843496
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -8982,8 +8983,8 @@ AudioSource:
   m_Enabled: 1
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
-  m_audioClip: {fileID: 0}
-  m_Resource: {fileID: 8300000, guid: 8beca0be3d7c11b43942c22d96786953, type: 3}
+  m_audioClip: {fileID: 8300000, guid: 7e90a7e22797c2a4b821f43137de9438, type: 3}
+  m_Resource: {fileID: 8300000, guid: 7e90a7e22797c2a4b821f43137de9438, type: 3}
   m_PlayOnAwake: 0
   m_Volume: 1
   m_Pitch: 1
