@@ -7,11 +7,18 @@ public class SelectFace : MonoBehaviour
     CubeState _cubeState;
     ReadCube _readCube;
     int _layerMask = 1 << 6;
+    public GameObject soundObject;
+    private AudioSource _audioSource;
+
     // Start is called before the first frame update
     void Start()
     {
         _cubeState = FindFirstObjectByType<CubeState>();
         _readCube = FindFirstObjectByType<ReadCube>();
+        if (soundObject != null)
+        {
+            _audioSource = soundObject.GetComponent<AudioSource>();
+        }
     }
 
     // Update is called once per frame
@@ -46,7 +53,9 @@ public class SelectFace : MonoBehaviour
                     {
                         // Pick it up
                         _cubeState.PickUp(cubeSide);
-                        cubeSide[4].transform.parent.GetComponent<PivotRotation>().Rotate(cubeSide);
+                        PivotRotation pr = cubeSide[4].transform.parent.GetComponent<PivotRotation>();
+                        pr.Init(_audioSource);
+                        pr.Rotate(cubeSide);
                     }
                 }
             }

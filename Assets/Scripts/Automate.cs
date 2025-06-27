@@ -13,6 +13,8 @@ public class Automate : MonoBehaviour
     private CubeState _cubeState;
     private ReadCube _readCube;
     private UI _ui;
+    public GameObject soundObject;
+    private AudioSource _audioSource;
     
     // Start is called before the first frame update
     void Start()
@@ -20,6 +22,10 @@ public class Automate : MonoBehaviour
         _cubeState = FindFirstObjectByType<CubeState>();
         _readCube = FindFirstObjectByType<ReadCube>();
         _ui = FindFirstObjectByType<UI>();
+        if (soundObject != null)
+        {
+            _audioSource = soundObject.GetComponent<AudioSource>();
+        }
     }
 
     // Update is called once per frame
@@ -125,6 +131,7 @@ public class Automate : MonoBehaviour
     {
         // Automatically rotate the side by the angle
         PivotRotation pr = side[4].transform.parent.GetComponent<PivotRotation>();
+        pr.Init(_audioSource);
         pr.StartAutoRotate(side, angle);
     }
 }
