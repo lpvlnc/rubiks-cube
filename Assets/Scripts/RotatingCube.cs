@@ -9,6 +9,12 @@ public class RotatingCube : MonoBehaviour
     Vector3 _mouseDelta;
     public GameObject target;
     public float Speed = 400f;
+    public GameObject soundObject;
+    private AudioSource _whoosh;
+
+    void Start() {
+        _whoosh = soundObject.GetComponent<AudioSource>();
+    }
 
     // Update is called once per frame
     void Update()
@@ -67,6 +73,7 @@ public class RotatingCube : MonoBehaviour
                 target.transform.Rotate(0, 0, 90, Space.World);
             else if (DownRightSwipe())
                 target.transform.Rotate(-90, 0, 0, Space.World);
+            _whoosh.Play();
         }
     }
 

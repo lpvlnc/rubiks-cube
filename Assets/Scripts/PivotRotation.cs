@@ -99,19 +99,13 @@ public class PivotRotation : MonoBehaviour
 
     public void RotateToCorrectAngle()
     {
-        Vector3 current = transform.localEulerAngles;
-        Vector3 rounded = transform.localEulerAngles;
-        rounded.x = Mathf.Round(rounded.x / 90) * 90;
-        rounded.y = Mathf.Round(rounded.y / 90) * 90;
-        rounded.z = Mathf.Round(rounded.z / 90) * 90;
-        // Compute angular difference
-        float delta = Quaternion.Angle(Quaternion.Euler(current), Quaternion.Euler(rounded));
-        
-        targetQuaternion.eulerAngles = rounded;
+        Vector3 vector = transform.localEulerAngles;
+        vector.x = Mathf.Round(vector.x / 90) * 90;
+        vector.y = Mathf.Round(vector.y / 90) * 90;
+        vector.z = Mathf.Round(vector.z / 90) * 90;
+        targetQuaternion.eulerAngles = vector;
         _autoRotating = true;
-        // Play sound only if change is substantial (e.g., more than 5°)
-        if (delta > 10f)
-            _audioSource.Play();
+        _audioSource.Play();
     }
 
     private void AutoRotate()
