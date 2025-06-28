@@ -39,12 +39,20 @@ public class SolveTwoPhase : MonoBehaviour
 
             // Solve the cube
             string info = "";
+            string solution = "";
 
-            // First time build the tables
-            //string solution = SearchRunTime.solution(moveString, out info, buildTables: true);
-
-            // Every other time we will use the method the reads from the pre generated tables
-            string solution = Search.solution(moveString, out info);
+            // Check if tables were already built
+            if (!PlayerPrefs.HasKey("TablesBuilt"))
+            {
+                solution = SearchRunTime.solution(moveString, out info, buildTables: true);
+                PlayerPrefs.SetInt("TablesBuilt", 1);
+                PlayerPrefs.Save(); // Ensure it's written to disk
+            }
+            else
+            {
+                // reads from the pre generated tables
+                solution = Search.solution(moveString, out info);
+            }
 
             // Convert the solved moves from a string to a list
             List<string> solutionList = StringToList(solution);
