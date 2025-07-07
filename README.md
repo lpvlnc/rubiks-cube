@@ -49,6 +49,6 @@ or
 Build locally:
  1. Clone this repository
  2. Use the 6000.1.8f1 version of unity
- 3. Run the projects 
+ 3. Run the project
 
 If you have any trouble running the project get in touch with me through my LinkedIn page (on profile)
